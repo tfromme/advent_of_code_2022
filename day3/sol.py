@@ -1,9 +1,10 @@
 from functools import reduce
 
+
 def batch(lst, n):
-    l = len(lst)
-    for ndx in range(0, l, n):
-        yield lst[ndx:min(ndx + n, l)]
+    length = len(lst)
+    for ndx in range(0, length, n):
+        yield lst[ndx:min(ndx + n, length)]
 
 
 def get_badge(group):
@@ -11,8 +12,8 @@ def get_badge(group):
 
 
 def get_overlap(sack):
-    comp1 = sack[:len(sack)//2]
-    comp2 = sack[len(sack)//2:]
+    comp1 = sack[:len(sack) // 2]
+    comp2 = sack[len(sack) // 2:]
 
     return (set(comp1) & set(comp2)).pop()
 
@@ -21,8 +22,9 @@ def get_priority(item):
     o = ord(item)
     return o - 38 if o < 97 else o - 96
 
-if __name__ == '__main__':
-    with open("input") as f:
+
+def main(input_path="input"):
+    with open(input_path) as f:
         sacks = f.read().splitlines()
 
     overlaps = [get_overlap(sack) for sack in sacks]
@@ -32,8 +34,11 @@ if __name__ == '__main__':
     badges = [get_badge(group) for group in groups]
     badge_prios = [get_priority(badge) for badge in badges]
 
-    # Part 1
-    print(sum(priorities))
+    part1 = sum(priorities)
+    part2 = sum(badge_prios)
 
-    # Part 2
-    print(sum(badge_prios))
+    return part1, part2
+
+
+if __name__ == '__main__':
+    print(main())

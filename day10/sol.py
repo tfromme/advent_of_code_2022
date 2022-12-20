@@ -11,30 +11,34 @@ def calculate_cycles(lines):
             register += increment
 
 
-def render_image(cycles):
+def render_image(cycles) -> str:
+    str = ""
     for i, register in enumerate(cycles):
         horizontal_position = i % 40
 
         sprite_shape = (register - 1, register, register + 1)
 
-        char = "#" if horizontal_position in sprite_shape else "."
-        end = "\n" if horizontal_position == 39 else ""
+        str += "#" if horizontal_position in sprite_shape else "."
+        if horizontal_position == 39:
+            str += "\n"
+    return str
 
-        print(char, end=end)
 
-
-if __name__ == '__main__':
-    with open("input") as f:
+def main(input_path="input"):
+    with open(input_path) as f:
         lines = f.read().splitlines()
 
     cycles = list(calculate_cycles(lines))
 
     valid_cycles = (20, 60, 100, 140, 180, 220)
 
-    strengths = [(i+1) * cycle for i, cycle in enumerate(cycles) if i+1 in valid_cycles]
+    strengths = [(i + 1) * cycle for i, cycle in enumerate(cycles) if i + 1 in valid_cycles]
 
-    # Part 1
-    print(sum(strengths))
+    part1 = sum(strengths)
+    part2 = render_image(cycles)
 
-    # Part 2
-    render_image(cycles)
+    return part1, part2
+
+
+if __name__ == '__main__':
+    print(main())

@@ -61,9 +61,8 @@ def parse_lines(lines):
     return root
 
 
-
-if __name__ == '__main__':
-    with open("input") as f:
+def main(input_path="input"):
+    with open(input_path) as f:
         lines = f.read().splitlines()
 
     tree = parse_lines(lines)
@@ -77,8 +76,11 @@ if __name__ == '__main__':
         if d.size > min_to_delete and d.size < to_delete.size:
             to_delete = d
 
-    # Part 1
-    print(sum(d.size for d in filtered_dirs))
+    part1 = sum(d.size for d in filtered_dirs)
+    part2 = to_delete.size
 
-    # Part 2
-    print(to_delete.size)
+    return part1, part2
+
+
+if __name__ == '__main__':
+    print(main())

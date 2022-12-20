@@ -22,16 +22,19 @@ def overlaps(pair):
     return a or b or c or d
 
 
-if __name__ == '__main__':
-    with open("input") as f:
+def main(input_path="input"):
+    with open(input_path) as f:
         lines = f.read().splitlines()
 
     pairs = list(parse_lines(lines))
-    contains = [contains(pair) for pair in pairs]
-    overlaps = [overlaps(pair) for pair in pairs]
+    contain = [contains(pair) for pair in pairs]
+    overlap = [overlaps(pair) for pair in pairs]
 
-    # Part 1
-    print(len([c for c in contains if c]))
+    part1 = len([c for c in contain if c])
+    part2 = len([o for o in overlap if o])
 
-    # Part 2
-    print(len([o for o in overlaps if o]))
+    return part1, part2
+
+
+if __name__ == '__main__':
+    print(main())

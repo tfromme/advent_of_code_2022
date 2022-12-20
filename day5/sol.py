@@ -9,10 +9,10 @@ def parse_stacks(lines):
             break
 
     stacks = [[] for _ in range(num_cols)]
-    for index in range(max_len-1, -1, -1):
+    for index in range(max_len - 1, -1, -1):
         line = lines[index]
         for col_num in range(num_cols):
-            char = line[col_num*4 + 1]
+            char = line[col_num * 4 + 1]
             if char != " ":
                 stacks[col_num].append(char)
 
@@ -47,8 +47,8 @@ def process_part2(instructions, stacks):
     return new_stacks
 
 
-if __name__ == '__main__':
-    with open("input") as f:
+def main(input_path="input"):
+    with open(input_path) as f:
         lines = list(f.read().splitlines())
 
     stacks = parse_stacks(lines)
@@ -57,8 +57,11 @@ if __name__ == '__main__':
     result = process(instructions, stacks)
     result_2 = process_part2(instructions, stacks)
 
-    # Part 1
-    print("".join(s[-1] for s in result))
+    part1 = "".join(s[-1] for s in result)
+    part2 = "".join(s[-1] for s in result_2)
 
-    # Part 2
-    print("".join(s[-1] for s in result_2))
+    return part1, part2
+
+
+if __name__ == '__main__':
+    print(main())

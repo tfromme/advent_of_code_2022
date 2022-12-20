@@ -7,8 +7,9 @@ def parse_lines(lines):
             start_slice = end_slice + 1
         end_slice += 1
 
-if __name__ == '__main__':
-    with open("input") as f:
+
+def main(input_path="input"):
+    with open(input_path) as f:
         lines = f.read().split("\n")
 
     calories = parse_lines(int(line) if line else line for line in lines)
@@ -16,9 +17,11 @@ if __name__ == '__main__':
 
     sums.sort(reverse=True)
 
-    # Part 1
-    print(sums[0])
+    part1 = sums[0]
+    part2 = sum(sums[0:3])
 
-    # Part 2
-    print(sum(sums[0:3]))
+    return part1, part2
 
+
+if __name__ == "__main__":
+    print(main())

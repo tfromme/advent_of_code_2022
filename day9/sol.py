@@ -1,5 +1,6 @@
 from functools import reduce
 
+
 def is_touching(head_pos, tail_pos):
     return (abs(head_pos[0] - tail_pos[0]) <= 1 and
             abs(head_pos[1] - tail_pos[1]) <= 1)
@@ -43,7 +44,7 @@ def simulate_line(line, positions):
     for _ in range(count):
         positions[0] = move_head(positions[0], direction)
         for i in range(len(positions) - 1):
-            positions[i+1] = new_tail_pos(positions[i], positions[i+1])
+            positions[i + 1] = new_tail_pos(positions[i], positions[i + 1])
         all_tail_pos.add(positions[-1])
 
     return all_tail_pos
@@ -58,18 +59,19 @@ def simulate(lines, start, num_knots=2):
     )
 
 
-
-if __name__ == '__main__':
-    with open("input") as f:
+def main(input_path="input"):
+    with open(input_path) as f:
         lines = [(line.split()[0], int(line.split()[1])) for line in f.read().splitlines()]
 
     start = 0, 0
     tail_positions = simulate(lines, start, 2)
     ten_tail_positions = simulate(lines, start, 10)
 
+    part1 = len(tail_positions)
+    part2 = len(ten_tail_positions)
 
-    # Part 1
-    print(len(tail_positions))
+    return part1, part2
 
-    # Part 2
-    print(len(ten_tail_positions))
+
+if __name__ == '__main__':
+    print(main())

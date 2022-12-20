@@ -22,7 +22,7 @@ def horizontal_visible_mask(lines):
                 tallest_so_far = val
         right_mask = right_mask[::-1]
 
-        yield [l or r for (l,r) in zip(left_mask, right_mask)]
+        yield [l or r for (l, r) in zip(left_mask, right_mask)]
 
 
 def combine_masks(mask1, mask2):
@@ -35,7 +35,7 @@ def horizontal_score(lines):
         left_scores = []
         for i, val in enumerate(line):
             left_score = 0
-            for j in range(i-1, -1, -1):
+            for j in range(i - 1, -1, -1):
                 left_score += 1
                 if line[j] >= val:
                     break
@@ -44,13 +44,13 @@ def horizontal_score(lines):
         right_scores = []
         for i, val in enumerate(line):
             right_score = 0
-            for j in range(i+1, len(line)):
+            for j in range(i + 1, len(line)):
                 right_score += 1
                 if line[j] >= val:
                     break
             right_scores.append(right_score)
 
-        yield [l*r for l,r in zip(left_scores, right_scores)]
+        yield [left * right for left, right in zip(left_scores, right_scores)]
 
 
 def combine_scores(scores1, scores2):
@@ -58,8 +58,8 @@ def combine_scores(scores1, scores2):
         yield [val1 * val2 for (val1, val2) in zip(l1, l2)]
 
 
-if __name__ == '__main__':
-    with open("input") as f:
+def main(input_path="input"):
+    with open(input_path) as f:
         lines = [[int(val) for val in line] for line in f.read().splitlines()]
 
     horizontal = list(horizontal_visible_mask(lines))
@@ -68,17 +68,17 @@ if __name__ == '__main__':
 
     mask = list(combine_masks(horizontal, transpose(vertical)))
 
-    count = sum(sum(1 if val else 0 for val in line) for line in mask)
-
-    # Part 1
-    print(count)
+    part1 = sum(sum(1 if val else 0 for val in line) for line in mask)
 
     horizontal_scores = list(horizontal_score(lines))
     vertical_scores = list(horizontal_score(transposed))
 
     scores = list(combine_scores(horizontal_scores, transpose(vertical_scores)))
 
-    max_score = max(max(line) for line in scores)
+    part2 = max(max(line) for line in scores)
 
-    # Part 2
-    print(max_score)
+    return part1, part2
+
+
+if __name__ == '__main__':
+    print(main())

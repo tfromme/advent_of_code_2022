@@ -52,16 +52,18 @@ def calc_points(rnd):
     return shape[me] + output[them][me]
 
 
-
-if __name__ == '__main__':
-    with open("input") as f:
+def main(input_path="input"):
+    with open(input_path) as f:
         guide = [line.split(" ") for line in f.read().split("\n")][:-1]
 
     part1_rounds = [calc_points(line) for line in guide]
     part2_rounds = [calc_part2_points(line) for line in guide]
 
-    # Part 1
-    print(sum(part1_rounds))
+    part1 = sum(part1_rounds)
+    part2 = sum(part2_rounds)
 
-    # Part 2
-    print(sum(part2_rounds))
+    return part1, part2
+
+
+if __name__ == '__main__':
+    print(main())
